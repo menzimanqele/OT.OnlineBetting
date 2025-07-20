@@ -1,0 +1,27 @@
+version: "3.8"
+name: ot-online-betting
+
+services:
+  rabbitmq-server:
+    container_name: rabbitmq-server
+    image: "rabbitmq:3.13.7-management-alpine"
+    hostname: "rabbitmq-server"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    labels:
+      name: "rabbitmq-server"
+    restart: unless-stopped
+    
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge 
+    container_name: sqlserver
+    ports:
+        - "1433:1433"
+    environment:
+      SA_PASSWORD: "Menzi@2020"
+      ACCEPT_EULA: "Y"

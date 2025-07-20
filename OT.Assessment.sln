@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OT.Assessment.Consumer", "src\OT.Assessment.Consumer\OT.Assessment.Consumer.csproj", "{FEB40B93-D586-4600-AAC9-DD0960D0083D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OT.Assessment.App", "src\OT.Assessment.App\OT.Assessment.App.csproj", "{9C47B574-9401-48DD-AB40-48F0C9BA699A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OT.Assessment.Api", "src\OT.Assessment.Api\OT.Assessment.Api.csproj", "{9C47B574-9401-48DD-AB40-48F0C9BA699A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OT.Assessment.Tester", "test\OT.Assessment.Tester\OT.Assessment.Tester.csproj", "{BF0CDF90-B607-4710-9F26-67E23498C865}"
 EndProject

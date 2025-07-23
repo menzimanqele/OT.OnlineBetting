@@ -18,6 +18,8 @@ public class Wager : IBaseEntity<Guid>, IAuditable
     public Guid ExternalReferenceId { get; set; }
     public int NumberOfBets { get; set; }
     public long Duration { get; set; }
+    public Guid TransactionTypeId { get; set; }
+    public decimal Amount { get; set; }
     public string CreatedBy { get; set; }
     public DateTime DateCreated { get; set; }
     public DateTime? DateUpdated { get; set; }

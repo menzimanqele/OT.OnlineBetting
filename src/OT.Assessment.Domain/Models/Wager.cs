@@ -6,9 +6,15 @@ public class Wager : IBaseEntity<Guid>, IAuditable
 {
     public Guid Id { get; set; }
     public Guid GameId { get; set; }
+    /// <summary>
+    /// Ensures one-to-one mapping per wager.
+    /// </summary>
     public Guid TransactionId { get; set; } 
     public Guid BrandId { get; set; }
     public Guid UserId { get; set; }  
+    /// <summary>
+    /// For tracing or correlation, 
+    /// </summary>
     public Guid ExternalReferenceId { get; set; }
     public int NumberOfBets { get; set; }
     public long Duration { get; set; }

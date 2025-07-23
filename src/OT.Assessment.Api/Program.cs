@@ -1,4 +1,5 @@
 using System.Reflection;
+using OT.Assessment.Shared.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -11,6 +12,7 @@ builder.Services.AddSwaggerGen(options =>
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
+builder.AddLoggingSupport();
 
 var app = builder.Build();
 

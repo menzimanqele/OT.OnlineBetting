@@ -2,7 +2,8 @@ using OT.Assessment.Domain.Interfaces;
 
 namespace OT.Assessment.Domain.Models;
 
-public class TransactionType : IBaseEntity<short>
+public class TransactionType : IBaseEntity<Guid>
 {
-    public short Id { get; set; }
+    public string Name { get; set; }
+    public Guid Id { get; set; }
 }

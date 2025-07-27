@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\OT.Common.EventBus\OT.Common.EventBus.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="EventHandlers\" />
+      <Folder Include="Events\" />
+      <Folder Include="Extensions\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="linq2db" Version="5.4.1" />
+      <PackageReference Include="MediatR" Version="13.0.0" />
+    </ItemGroup>
+
+</Project>

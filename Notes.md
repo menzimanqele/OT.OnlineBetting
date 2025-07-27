@@ -41,6 +41,9 @@ Both GET endpoints return accurate and expected results under load (verified via
 
 Structured logging and fallback error handlers have been added for resilience.
 
+CI/CD
+GitHub Actions are configured to run build and test checks on every pull request to ensure stability before merging.
+
 Production-Readiness Improvements
 Move connection strings and sensitive data to Azure Key Vault.
 

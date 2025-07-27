@@ -40,6 +40,9 @@ namespace OT.OnlineBetting.Api.Controllers
             [FromQuery] int page = 1,
             CancellationToken cancellationToken = default)
         {
+
+            string [] m = ["r34"];
+            var k =m[4];
             var res = await  mediator.Send(new GetWagersByPlayerQuery(playerId, page, pageSize), cancellationToken);
             return Ok(res);
         }

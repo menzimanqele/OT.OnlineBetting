@@ -1,4 +1,6 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Diagnostics;
+using OT.OnlineBetting.Api.Middleware;
 using OT.OnlineBetting.Application.Extensions.IoC;
 using OT.OnlineBetting.Application.Queries.Wager;
 using OT.OnlineBetting.Shared.IoC;
@@ -22,8 +24,8 @@ try
         var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
         options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
     });
+    builder.Services.AddSingleton<IExceptionHandler, ErrorHandlerMiddleware>();
     builder.AddLoggingSupport();
-//builder.Services.AddInfrastructureConfiguration();
     builder.Services.RegisterSharedServices(builder.Configuration);
     builder.Services.AddApplicationConfigurations();
     builder.Services.AddMediatR(cfg =>
@@ -38,17 +40,14 @@ try
         app.UseSwaggerUI(opts =>
         {
             opts.EnableTryItOutByDefault();
-            opts.DocumentTitle = "OT Assessment App";
+            opts.DocumentTitle = "OT OnlineBetting App";
             opts.DisplayRequestDuration();
         });
     }
 
     app.UseHttpsRedirection();
-
     app.UseAuthorization();
-
     app.MapControllers();
-    
     Log.Information("Host is starting");
     await app.RunAsync();
     Log.Information("Host is shutting down");

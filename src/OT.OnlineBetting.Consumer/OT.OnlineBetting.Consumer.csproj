@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\OT.Common.EventBus\OT.Common.EventBus.csproj" />
+	  <ProjectReference Include="..\OT.OnlineBetting.Domain\OT.OnlineBetting.Domain.csproj" />
+	  <ProjectReference Include="..\OT.OnlineBetting.Infrastructure\OT.OnlineBetting.Infrastructure.csproj" />
+	  <ProjectReference Include="..\OT.OnlineBetting.Shared\OT.OnlineBetting.Shared.csproj" />
+	</ItemGroup>
+
+
+</Project>

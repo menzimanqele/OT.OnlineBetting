@@ -17,113 +17,115 @@ END
 USE online_betting;
 
 
--- ======================================
--- DROP EXISTING TABLES (for dev only)
--- ======================================
-IF OBJECT_ID('dbo.Wager', 'U') IS NOT NULL DROP TABLE dbo.Wager;
-IF OBJECT_ID('dbo.Game', 'U') IS NOT NULL DROP TABLE dbo.Game;
-IF OBJECT_ID('dbo.Player', 'U') IS NOT NULL DROP TABLE dbo.Player;
-IF OBJECT_ID('dbo.Provider', 'U') IS NOT NULL DROP TABLE dbo.Provider;
-IF OBJECT_ID('dbo.TransactionType', 'U') IS NOT NULL DROP TABLE dbo.TransactionType;
-IF OBJECT_ID('dbo.Country', 'U') IS NOT NULL DROP TABLE dbo.Country;
-
-
--- ======================================
--- CREATE TABLES
--- ======================================
+-- Drop tables if they already exist
+DROP TABLE IF EXISTS Wager, Account, Player, Game, Provider, Country, TransactionType;
 
 -- Country
 CREATE TABLE Country (
                          Id UNIQUEIDENTIFIER PRIMARY KEY,
-                         Code CHAR(2) NOT NULL
+                         Code VARCHAR(10) NOT NULL
 );
-
-
--- Provider
-CREATE TABLE Provider (
-                          Id UNIQUEIDENTIFIER PRIMARY KEY,
-                          Name NVARCHAR(100) NOT NULL,
-                          IsActive BIT NOT NULL
-);
-
-
--- TransactionType
-CREATE TABLE TransactionType (
-                                 Id UNIQUEIDENTIFIER PRIMARY KEY,
-                                 Name NVARCHAR(100) NOT NULL
-);
-
 
 -- Player
 CREATE TABLE Player (
                         Id UNIQUEIDENTIFIER PRIMARY KEY,
-                        UserName NVARCHAR(100) NOT NULL,
+                        UserName VARCHAR(100) NOT NULL,
                         CountryId UNIQUEIDENTIFIER NOT NULL,
                         FOREIGN KEY (CountryId) REFERENCES Country(Id)
 );
 
+-- Account
+CREATE TABLE Account (
+                         Id UNIQUEIDENTIFIER PRIMARY KEY,
+                         PlayerId UNIQUEIDENTIFIER NOT NULL,
+                         CreatedBy VARCHAR(100),
+                         DateCreated DATETIME2 NOT NULL,
+                         DateUpdated DATETIME2,
+                         UpdatedBy VARCHAR(100),
+                         FOREIGN KEY (PlayerId) REFERENCES Player(Id)
+);
+
+-- Provider
+CREATE TABLE Provider (
+                          Id UNIQUEIDENTIFIER PRIMARY KEY,
+                          Name VARCHAR(100) NOT NULL,
+                          IsActive BIT NOT NULL
+);
 
 -- Game
 CREATE TABLE Game (
                       Id UNIQUEIDENTIFIER PRIMARY KEY,
-                      Name NVARCHAR(100) NOT NULL,
+                      Name VARCHAR(100) NOT NULL,
                       ProviderId UNIQUEIDENTIFIER NOT NULL,
                       IsActive BIT NOT NULL,
                       FOREIGN KEY (ProviderId) REFERENCES Provider(Id)
 );
 
+-- TransactionType
+CREATE TABLE TransactionType (
+                                 Id UNIQUEIDENTIFIER PRIMARY KEY,
+                                 Name VARCHAR(50) NOT NULL
+);
 
 -- Wager
 CREATE TABLE Wager (
                        Id UNIQUEIDENTIFIER PRIMARY KEY,
                        GameId UNIQUEIDENTIFIER NOT NULL,
-                       TransactionId UNIQUEIDENTIFIER NOT NULL,
+                       TransactionId UNIQUEIDENTIFIER NOT NULL UNIQUE,
                        BrandId UNIQUEIDENTIFIER NOT NULL,
-                       UserId UNIQUEIDENTIFIER NOT NULL,
-                       ExternalReferenceId UNIQUEIDENTIFIER NOT NULL,
-                       NumberOfBets INT NOT NULL,
-                       Duration BIGINT NOT NULL,
+                       PlayerId UNIQUEIDENTIFIER NOT NULL,
+                       ExternalReferenceId UNIQUEIDENTIFIER,
+                       NumberOfBets INT,
+                       Duration BIGINT,
                        TransactionTypeId UNIQUEIDENTIFIER NOT NULL,
-                       Amount DECIMAL(18, 2) NOT NULL,
-                       CreatedBy NVARCHAR(100) NOT NULL,
+                       Amount DECIMAL(18, 4),
+                       CreatedBy VARCHAR(100),
                        DateCreated DATETIME2 NOT NULL,
-                       DateUpdated DATETIME2 NULL,
-                       UpdatedBy NVARCHAR(100) NULL,
-
-                       CONSTRAINT FK_Wager_Game FOREIGN KEY (GameId) REFERENCES Game(Id),
-                       CONSTRAINT FK_Wager_Player FOREIGN KEY (UserId) REFERENCES Player(Id),
-                       CONSTRAINT FK_Wager_TransactionType FOREIGN KEY (TransactionTypeId) REFERENCES TransactionType(Id),
-
-                       CONSTRAINT UQ_Wager_TransactionId UNIQUE (TransactionId)
+                       DateUpdated DATETIME2,
+                       UpdatedBy VARCHAR(100),
+                       FOREIGN KEY (GameId) REFERENCES Game(Id),
+                       FOREIGN KEY (TransactionTypeId) REFERENCES TransactionType(Id),
+                       FOREIGN KEY (PlayerId) REFERENCES Player(Id)
 );
 
 
--- Index for filtering player wagers
-CREATE INDEX IX_Wager_UserId_CreatedDate ON Wager(UserId, DateCreated DESC);
-
-
--- ======================================
--- SEED DATA
--- ======================================
 
 -- Countries
-INSERT INTO Country (Id, Code)
-VALUES
-    ('a5f4f580-5c94-4a56-b7ef-1d97d531d0cd', 'ZA'),
-    ('c81d41aa-e542-4f1b-8883-bdfd0f2768d5', 'BS');
+INSERT INTO Country (Id, Code) VALUES
+                                   ('11111111-0000-0000-0000-000000000001', 'ZA'),
+                                   ('11111111-0000-0000-0000-000000000002', 'NG');
 
+-- Players
+INSERT INTO Player (Id, UserName, CountryId) VALUES
+                                                 ('22222222-0000-0000-0000-000000000001', 'Jay.Bernhard67', '11111111-0000-0000-0000-000000000001'),
+                                                 ('22222222-0000-0000-0000-000000000002', 'testUser21', '11111111-0000-0000-0000-000000000002');
+
+-- Accounts
+INSERT INTO Account (Id, PlayerId, CreatedBy, DateCreated) VALUES
+                                                               ('33333333-0000-0000-0000-000000000001', '22222222-0000-0000-0000-000000000001', 'system', GETUTCDATE()),
+                                                               ('33333333-0000-0000-0000-000000000002', '22222222-0000-0000-0000-000000000002', 'system', GETUTCDATE());
 
 -- Providers
-INSERT INTO Provider (Id, Name, IsActive)
-VALUES
-    ('e4e6e4ac-fd4f-4b32-9fdd-b0679a6200fd', 'Ernomic Soft Fish', 1),
-    ('ea527a0c-0f3f-46a2-b2e4-1e3229eb4a3a', 'Test Provider', 1);
+INSERT INTO Provider (Id, Name, IsActive) VALUES
+    ('44444444-0000-0000-0000-000000000001', 'Ergonomic Soft Fish', 1);
 
+-- Games
+INSERT INTO Game (Id, Name, ProviderId, IsActive) VALUES
+    ('55555555-0000-0000-0000-000000000001', 'Ergonomic Granite Cheese', '44444444-0000-0000-0000-000000000001', 1);
 
 -- Transaction Types
-INSERT INTO TransactionType (Id, Name)
-VALUES
-    ('cc39c9b3-3b4f-4a69-b222-0bb153dfed1a', 'Bet'),
-    ('5ecad2f2-7a42-4b6e-a7f0-c8e8ab1f9af2', 'Win'),
-    ('4d75b478-9cf2-4937-b0b4-eae6b3e4b145', 'Refund');
+INSERT INTO TransactionType (Id, Name) VALUES
+                                           ('66666666-0000-0000-0000-000000000001', 'Bet'),
+                                           ('66666666-0000-0000-0000-000000000002', 'Win');
 
+-- Wagers
+INSERT INTO Wager (
+    Id, GameId, TransactionId, BrandId, PlayerId, ExternalReferenceId,
+    NumberOfBets, Duration, TransactionTypeId, Amount,
+    CreatedBy, DateCreated
+) VALUES
+    ('77777777-0000-0000-0000-000000000001', '55555555-0000-0000-0000-000000000001',
+     '88888888-0000-0000-0000-000000000001', '99999999-0000-0000-0000-000000000001',
+     '22222222-0000-0000-0000-000000000001', 'aaaaaaa1-0000-0000-0000-000000000001',
+     3, 1827254, '66666666-0000-0000-0000-000000000001', 38273.9745, 'admin', GETUTCDATE()
+    );

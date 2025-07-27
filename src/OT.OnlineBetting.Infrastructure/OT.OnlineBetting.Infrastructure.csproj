@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="linq2db" Version="5.4.1" />
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\OT.Common.EventBus.RabbitMQ\OT.Common.EventBus.RabbitMQ.csproj" />
+      <ProjectReference Include="..\OT.OnlineBetting.Domain\OT.OnlineBetting.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

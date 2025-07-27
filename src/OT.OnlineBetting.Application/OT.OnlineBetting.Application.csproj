@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\OT.Common.EventBus.RabbitMQ\OT.Common.EventBus.RabbitMQ.csproj" />
+      <ProjectReference Include="..\OT.OnlineBetting.Domain\OT.OnlineBetting.Domain.csproj" />
+      <ProjectReference Include="..\OT.OnlineBetting.Shared\OT.OnlineBetting.Shared.csproj" />
+    </ItemGroup>
+
+</Project>

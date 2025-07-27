@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OT.OnlineBetting.Api</name>
+    </assembly>
+    <members>
+        <member name="M:OT.OnlineBetting.Api.Controllers.PlayerController.Post(OT.OnlineBetting.Application.Interfaces.ICommandHandler{OT.OnlineBetting.Application.Commands.CreateWager.CreateWagerCommand},OT.OnlineBetting.Application.Commands.CreateWager.CreateWagerCommand,System.Threading.CancellationToken)">
+            <summary>
+            Create player casino wager
+            </summary>
+            <param name="handler"></param>
+            <param name="command"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OT.OnlineBetting.Api.Controllers.PlayerController.GetPlayerWagers(MediatR.IMediator,System.Guid,System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Get latest casino wagers for a specific player.
+            </summary>
+            <param name="mediator"></param>
+            <param name="playerId"></param>
+            <param name="pageSize"></param>
+            <param name="page"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OT.OnlineBetting.Api.Controllers.PlayerController.TopSpenders(MediatR.IMediator,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Get top players based on total spending. Highest to Lowest.
+            </summary>
+            <param name="mediator"></param>
+            <param name="count"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

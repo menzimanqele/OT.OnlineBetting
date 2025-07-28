@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "78590031-4a75-4d24-ab36-a664cd0fc4ff",
+		"name": "Player",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "166589",
+		"_collection_link": "https://bold-eclipse-893387.postman.co/workspace/OnlineBetting~2e9b7a4a-650a-4265-9a14-ea9858191860/collection/166589-78590031-4a75-4d24-ab36-a664cd0fc4ff?action=share&source=collection_link&creator=166589"
+	},
+	"item": [
+		{
+			"name": "Create player casino wager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"1D6F637A-8746-4128-8BCF-83AC1D552811\",\n  \"gameId\": \"15F84A6B-2680-4731-9060-ADCDCB090B32\",\n  \"transactionId\": \"4ADA7A43-AC96-4111-81B0-E3A9241893D7\",\n  \"brandId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"userId\": \"22222222-0000-0000-0000-000000000008\",\n  \"externalReferenceId\": \"8ED677B9-276A-4A94-A086-374549AB95ED\",\n  \"numberOfBets\": 1,\n  \"duration\": 3234,\n  \"transactionTypeId\": \"00247198-D2D7-4FD3-8107-C12C3ED48483\",\n  \"amount\": 41245,\n  \"createdBy\": \"Menzi Manqele\",\n  \"dateCreated\": \"2025-07-26T19:59:12.446Z\",\n  \"dateUpdated\": \"2025-07-27T19:59:12.446Z\",\n  \"updatedBy\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/player/casinoWager",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"player",
+						"casinoWager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get latest casino wagers for a specific player.",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Player/1D2020EC-DA77-421E-B2B3-A71BAD3CF495/casino?pageSize=10&page=1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Player",
+						"1D2020EC-DA77-421E-B2B3-A71BAD3CF495",
+						"casino"
+					],
+					"query": [
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get top players based on total spending. Highest to Lowest.",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Player/topSpenders?count=10'",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Player",
+						"topSpenders"
+					],
+					"query": [
+						{
+							"key": "count",
+							"value": "10'"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

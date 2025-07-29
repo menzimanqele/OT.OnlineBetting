@@ -20,9 +20,10 @@ public class Repository<T, TKey>(ILogger<Repository<T, TKey>> logger, DataConnec
         return await dbConnection.GetTable<T>().FirstOrDefaultAsync(x=>x.Id != null && x.Id.Equals(id));
     }
 
-    public async Task AddSync(T entity)
+    public async Task<int> AddSync(T entity)
     {
-        await dbConnection.InsertAsync(entity);
+       var numberOfAffectedRows =  await dbConnection.InsertAsync(entity);
+       return numberOfAffectedRows;
     }
 
     public IEnumerable<T> FindByConditionAsync(Func<T, bool> predicate)

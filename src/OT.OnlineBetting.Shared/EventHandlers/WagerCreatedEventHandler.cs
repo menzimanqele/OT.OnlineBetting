@@ -11,8 +11,14 @@ public class WagerCreatedEventHandler(ILogger<WagerCreatedEvent> logger, IUnitOf
     public async Task Handle(WagerCreatedEvent @event)
     {
         logger.LogInformation($"Wager Created Event: {@event.Id}"); 
-        await unitOfWork.GetRepository<IWagerRepository>().AddSync(@event.ToWagerModel());
-        logger.LogInformation($"Successfully created wager with id: {@event.Id}");
+       var results = await unitOfWork.GetRepository<IWagerRepository>().AddSync(@event.ToWagerModel());
+       if (results > 0)
+       {
+            logger.LogInformation($"Successfully created wager with id: {@event.Id}");
+            return;
+       }
+       
+       logger.LogError($"Failed to create wager with id: {@event.Id}");
     }
 }
 

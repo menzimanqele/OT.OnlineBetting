@@ -11,5 +11,9 @@
       <ProjectReference Include="..\OT.OnlineBetting.Domain\OT.OnlineBetting.Domain.csproj" />
       <ProjectReference Include="..\OT.OnlineBetting.Shared\OT.OnlineBetting.Shared.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="12.0.0" />
+    </ItemGroup>
 
 </Project>

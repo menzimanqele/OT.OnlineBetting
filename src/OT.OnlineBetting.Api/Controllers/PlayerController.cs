@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OT.OnlineBetting.Application.Commands.CreateWager;
 using OT.OnlineBetting.Application.Interfaces;
 using OT.OnlineBetting.Application.Queries.Wager;
+using OT.OnlineBetting.Application.Utilities;
 
 namespace OT.OnlineBetting.Api.Controllers
 {
@@ -21,6 +22,7 @@ namespace OT.OnlineBetting.Api.Controllers
         [HttpPost("casinoWager")]
         public async Task<IActionResult> Post([FromServices] ICommandHandler<CreateWagerCommand> handler, [FromBody] CreateWagerCommand command, CancellationToken cancellationToken)
         {
+            ValidateRequestModel<CreateWagerCommand,CreateWagerHandler.CreateWagerCommandValidator>.Validate(command);
             await handler.HandleAsync(command,cancellationToken);
             return Ok();
         }

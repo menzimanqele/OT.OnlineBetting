@@ -1,4 +1,5 @@
 using System.Reflection;
+using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using OT.OnlineBetting.Api.Middleware;
 using OT.OnlineBetting.Application.Extensions.IoC;
@@ -31,6 +32,8 @@ try
     builder.Services.AddMediatR(cfg =>
         cfg.RegisterServicesFromAssembly(typeof(GetWagersByPlayerQuery).Assembly)
     );
+    builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+    
     var app = builder.Build();
 
 // Configure the HTTP request pipeline.

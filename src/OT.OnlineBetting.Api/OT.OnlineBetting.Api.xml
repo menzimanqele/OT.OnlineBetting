@@ -4,7 +4,7 @@
         <name>OT.OnlineBetting.Api</name>
     </assembly>
     <members>
-        <member name="M:OT.OnlineBetting.Api.Controllers.PlayerController.Post(OT.OnlineBetting.Application.Interfaces.ICommandHandler{OT.OnlineBetting.Application.Commands.CreateWager.CreateWagerCommand},OT.OnlineBetting.Application.Commands.CreateWager.CreateWagerCommand,System.Threading.CancellationToken)">
+        <member name="M:OT.OnlineBetting.Api.Controllers.PlayerController.Post(OT.OnlineBetting.Application.Interfaces.ICommandHandler{OT.OnlineBetting.Application.Commands.CreateWager.CreateWagerCommand},OT.OnlineBetting.Application.Commands.CreateWager.CreateWagerCommand,FluentValidation.IValidator{OT.OnlineBetting.Application.Commands.CreateWager.CreateWagerCommand},System.Threading.CancellationToken)">
             <summary>
             Create player casino wager
             </summary>

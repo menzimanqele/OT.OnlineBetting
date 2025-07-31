@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using OT.OnlineBetting.Application.Commands.CreateWager;
 using OT.OnlineBetting.Application.Interfaces;
@@ -10,5 +11,6 @@ public static class ApplicationExtensions
     {
         ArgumentNullException.ThrowIfNull(services);
         services.AddScoped<ICommandHandler<CreateWagerCommand>, CreateWagerHandler>();
+        services.AddValidatorsFromAssemblyContaining(typeof(CreateWagerHandler.CreateWagerCommandValidator));
     }
 }

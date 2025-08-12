@@ -1,4 +1,4 @@
-using System.Security.AccessControl;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using OT.OnlineBetting.Application.Extensions.Mappings;
@@ -15,13 +15,17 @@ public class GetWagersByPlayerQuery : IRequest<PaginatedDto<WagerDto>>
     
     public GetWagersByPlayerQuery(Guid playerId, int page =1 , int pageSize = 10)
     {
-        //TODO : Use Gaurds & Assign in one line 
-        ArgumentNullException.ThrowIfNull(playerId, nameof(playerId));
-        ArgumentNullException.ThrowIfNull(page, nameof(page));
-        ArgumentNullException.ThrowIfNull(pageSize, nameof(pageSize));
         PlayerId = playerId;
         PageNumber = page;
         PageSize = pageSize;
+    }
+
+    public class GetWagersByPlayerQueryValidation : AbstractValidator<GetWagersByPlayerQuery>
+    {
+        public GetWagersByPlayerQueryValidation()
+        {
+            RuleFor(x => x.PlayerId).NotEmpty();
+        }
     }
     
     public class GetWagersByPlayerQueryHandler(ILogger<GetWagersByPlayerQueryHandler> logger,IUnitOfWork unitOfWork) : IRequestHandler<GetWagersByPlayerQuery,PaginatedDto<WagerDto>>

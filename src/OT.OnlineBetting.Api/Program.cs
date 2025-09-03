@@ -1,6 +1,7 @@
 using System.Reflection;
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
+using OT.OnlineBetting.Api.Filters;
 using OT.OnlineBetting.Api.Middleware;
 using OT.OnlineBetting.Application.Extensions.IoC;
 using OT.OnlineBetting.Application.Queries.Wager;
@@ -15,7 +16,7 @@ Log.Logger = new LoggerConfiguration()
 try
 {
     var builder = WebApplication.CreateBuilder(args);
-    builder.Services.AddControllers();
+    builder.Services.AddControllers( options => options.Filters.Add<RequestValidation>());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckl
     builder.Services.AddEndpointsApiExplorer();

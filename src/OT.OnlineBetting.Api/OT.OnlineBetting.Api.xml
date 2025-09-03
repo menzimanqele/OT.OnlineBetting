@@ -13,14 +13,11 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
-        <member name="M:OT.OnlineBetting.Api.Controllers.PlayerController.GetPlayerWagers(MediatR.IMediator,System.Guid,System.Int32,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:OT.OnlineBetting.Api.Controllers.PlayerController.GetPlayerWagers(MediatR.IMediator,OT.OnlineBetting.Application.Queries.Wager.GetWagersByPlayerQuery,System.Threading.CancellationToken)">
             <summary>
             Get latest casino wagers for a specific player.
             </summary>
-            <param name="mediator"></param>
-            <param name="playerId"></param>
-            <param name="pageSize"></param>
-            <param name="page"></param>
+            <param name="query"></param>
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>

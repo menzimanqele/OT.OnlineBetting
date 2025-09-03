@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using OT.OnlineBetting.Application.Commands.CreateWager;
 using OT.OnlineBetting.Application.Interfaces;
 using OT.OnlineBetting.Application.Queries.Wager;
-using OT.OnlineBetting.Application.Utilities;
 
 namespace OT.OnlineBetting.Api.Controllers
 {
@@ -22,29 +21,21 @@ namespace OT.OnlineBetting.Api.Controllers
         [HttpPost("casinoWager")]
         public async Task<IActionResult> Post([FromServices] ICommandHandler<CreateWagerCommand> handler, [FromBody] CreateWagerCommand command, CancellationToken cancellationToken)
         {
-            ValidateRequestModel<CreateWagerCommand,CreateWagerHandler.CreateWagerCommandValidator>.Validate(command);
             await handler.HandleAsync(command,cancellationToken);
             return Ok();
         }
-        
+
         /// <summary>
         /// Get latest casino wagers for a specific player.
         /// </summary>
-        /// <param name="mediator"></param>
-        /// <param name="playerId"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="page"></param>
+        /// <param name="query"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("{playerId}/casino")]
-        public async Task<IActionResult> GetPlayerWagers([FromServices] IMediator mediator, Guid playerId,
-            [FromQuery] int pageSize = 10,
-            [FromQuery] int page = 1,
+        public async Task<IActionResult> GetPlayerWagers([FromServices] IMediator mediator, [FromQuery] GetWagersByPlayerQuery query,
             CancellationToken cancellationToken = default)
         {
-            var command = new GetWagersByPlayerQuery(playerId, page, pageSize);
-            ValidateRequestModel<GetWagersByPlayerQuery,GetWagersByPlayerQuery.GetWagersByPlayerQueryValidation>.Validate(command);
-            var res = await  mediator.Send(command, cancellationToken);
+            var res = await  mediator.Send(query, cancellationToken);
             return Ok(res);
         }
 

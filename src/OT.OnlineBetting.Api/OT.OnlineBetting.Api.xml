@@ -17,10 +17,7 @@
             <summary>
             Get latest casino wagers for a specific player.
             </summary>
-            <param name="mediator"></param>
-            <param name="playerId"></param>
-            <param name="pageSize"></param>
-            <param name="page"></param>
+            <param name="query"></param>
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>

@@ -1,5 +1,6 @@
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OT.OnlineBetting.Application.Extensions.Mappings;
 using OT.OnlineBetting.Domain.Interfaces;
@@ -9,17 +10,12 @@ namespace OT.OnlineBetting.Application.Queries.Wager;
 
 public class GetWagersByPlayerQuery : IRequest<PaginatedDto<WagerDto>>
 {
-    public Guid PlayerId { get; }
-    public int PageNumber { get; }
-    public int PageSize { get; }
-    
-    public GetWagersByPlayerQuery(Guid playerId, int page =1 , int pageSize = 10)
-    {
-        PlayerId = playerId;
-        PageNumber = page;
-        PageSize = pageSize;
-    }
+    [FromRoute]
+    public Guid PlayerId { get; init; }
 
+    [FromQuery] public int PageNumber { get; init; } = 1;
+    [FromQuery] public int PageSize { get; init; } = 10;
+    
     public class GetWagersByPlayerQueryValidation : AbstractValidator<GetWagersByPlayerQuery>
     {
         public GetWagersByPlayerQueryValidation()
@@ -45,8 +41,11 @@ public class GetWagersByPlayerQuery : IRequest<PaginatedDto<WagerDto>>
                 return new PaginatedDto<WagerDto>
                 {
                     Data = wagerDtos,
-                    PageSize = request.PageSize,
-                    Page = request.PageNumber,
+                    Page = new PageDto
+                    {
+                        Number = request.PageNumber,
+                        Size = request.PageSize,
+                    },
                     Total = results.total
                 };
             }
@@ -56,8 +55,11 @@ public class GetWagersByPlayerQuery : IRequest<PaginatedDto<WagerDto>>
             return new PaginatedDto<WagerDto>
             {
                 Data = [],
-                PageSize = request.PageSize,
-                Page = request.PageNumber,
+                Page = new PageDto
+                {
+                    Number = request.PageNumber,
+                    Size = request.PageSize,
+                },
                 Total = results.total
             };
         }
